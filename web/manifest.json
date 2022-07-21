@@ -1,6 +1,6 @@
 {
-    "name": "ui_layouts",
-    "short_name": "ui_layouts",
+    "name": "Anime Hunt",
+    "short_name": "Anime Hunt",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
