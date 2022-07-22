@@ -8,6 +8,8 @@ class HomeApp extends StatefulWidget {
 }
 
 class _HomeAppState extends State<HomeApp> {
+  bool view = true;
+
   @override
   Widget build(BuildContext context) {
     var headerRow = Padding(
@@ -61,8 +63,6 @@ class _HomeAppState extends State<HomeApp> {
         ),
       ),
     );
-
-    bool view = true;
 
     var tabBar = Padding(
       padding: const EdgeInsets.all(10),

@@ -49,7 +49,7 @@ class _LoaderState extends State<Loader> {
   }
 
   void startTimer() {
-    Timer(const Duration(seconds: 0), route);
+    Timer(const Duration(seconds: 2), route);
   }
 
   void route() {
