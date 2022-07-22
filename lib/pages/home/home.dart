@@ -7,8 +7,13 @@ class HomeApp extends StatefulWidget {
   State<HomeApp> createState() => _HomeAppState();
 }
 
-class _HomeAppState extends State<HomeApp> {
-  bool view = true;
+class _HomeAppState extends State<HomeApp> with SingleTickerProviderStateMixin {
+  int _selected = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class _HomeAppState extends State<HomeApp> {
             style: TextStyle(
                 decoration: TextDecoration.none,
                 fontStyle: FontStyle.normal,
-                fontSize: 30,
+                fontSize: 40,
                 shadows: [
                   Shadow(blurRadius: 1, color: Colors.red, offset: Offset(1, 1))
                 ],
@@ -42,7 +47,7 @@ class _HomeAppState extends State<HomeApp> {
     );
 
     var searchBar = Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
+      padding: const EdgeInsets.only(left: 10, right: 10),
       child: Material(
         borderRadius: BorderRadius.circular(8),
         color: const Color(0xFF1F1F1F),
@@ -50,7 +55,7 @@ class _HomeAppState extends State<HomeApp> {
           padding: EdgeInsets.only(left: 15),
           child: TextField(
             cursorColor: Colors.white70,
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 18, color: Colors.white),
             decoration: InputDecoration(
               icon: Icon(Icons.search, color: Color(0xFF8B8B8B), size: 30),
               border: InputBorder.none,
@@ -64,19 +69,70 @@ class _HomeAppState extends State<HomeApp> {
       ),
     );
 
+    var animeContainer = Container();
+    var mangaContainer = Container();
+    var lnContainer = Container();
+
+    Expanded tabBuilder(index, name) {
+      return Expanded(
+        child: Padding(
+          padding: const EdgeInsets.all(3),
+          child: GestureDetector(
+            onTap: (() {
+              setState(() {
+                _selected = index;
+              });
+            }),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 450),
+              height: 30,
+              decoration: BoxDecoration(
+                color: (_selected == index) ? Colors.white : Colors.transparent,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Center(
+                child: Text(
+                  name,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: (_selected == index) ? Colors.black : Colors.white,
+                    decoration: TextDecoration.none,
+                    fontSize: 20,
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     var tabBar = Padding(
       padding: const EdgeInsets.all(10),
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                view = !view;
-              });
-            },
-            child: view ? const Text("THis") : const Text('Clicked'),
-          )
-        ],
+      child: Material(
+        color: Colors.transparent,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                tabBuilder(0, 'Anime'),
+                tabBuilder(1, 'Manga'),
+                tabBuilder(2, 'Light Novels')
+              ],
+            ),
+            Builder(builder: (_) {
+              if (_selected == 0) {
+                return animeContainer;
+              }
+              if (_selected == 1) {
+                return mangaContainer;
+              } else {
+                return lnContainer;
+              }
+            })
+          ],
+        ),
       ),
     );
 
@@ -85,7 +141,6 @@ class _HomeAppState extends State<HomeApp> {
         color: Color.fromRGBO(13, 13, 13, 1),
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.max,
         children: [headerRow, searchBar, tabBar],
       ),
     );
