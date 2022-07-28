@@ -11,14 +11,9 @@ class _HomeAppState extends State<HomeApp> with SingleTickerProviderStateMixin {
   int _selected = 0;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     var headerRow = Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
       child: Row(children: [
         const Expanded(
           child: Text(
@@ -47,21 +42,26 @@ class _HomeAppState extends State<HomeApp> with SingleTickerProviderStateMixin {
     );
 
     var searchBar = Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
-      child: Material(
-        borderRadius: BorderRadius.circular(8),
-        color: const Color(0xFF1F1F1F),
+      padding: const EdgeInsets.only(left: 5, right: 5),
+      child: Container(
+        decoration: BoxDecoration(
+            color: const Color(0xFF2F2F2F),
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(color: const Color.fromRGBO(139, 139, 139, 0.247))),
         child: const Padding(
           padding: EdgeInsets.only(left: 15),
-          child: TextField(
-            cursorColor: Colors.white70,
-            style: TextStyle(fontSize: 18, color: Colors.white),
-            decoration: InputDecoration(
-              icon: Icon(Icons.search, color: Color(0xFF8B8B8B), size: 30),
-              border: InputBorder.none,
-              hintText: 'Search Anime, Manga and Light Novels',
-              hintStyle: TextStyle(
-                color: Color(0xAA8B8B8B),
+          child: Material(
+            color: Colors.transparent,
+            child: TextField(
+              cursorColor: Colors.white70,
+              style: TextStyle(fontSize: 18, color: Colors.white),
+              decoration: InputDecoration(
+                icon: Icon(Icons.search, color: Color(0xFF8B8B8B), size: 30),
+                border: InputBorder.none,
+                hintText: 'Search Anime, Manga and Light Novels',
+                hintStyle: TextStyle(
+                  color: Color(0xAA8B8B8B),
+                ),
               ),
             ),
           ),
@@ -85,9 +85,12 @@ class _HomeAppState extends State<HomeApp> with SingleTickerProviderStateMixin {
             }),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 450),
-              height: 30,
+              height: 35,
               decoration: BoxDecoration(
-                color: (_selected == index) ? Colors.white : Colors.transparent,
+                border: Border.all(color: const Color.fromRGBO(139, 139, 139, 0.247)),
+                color: (_selected == index)
+                    ? const Color.fromRGBO(255, 75, 97, 1)
+                    : const Color(0xFF323232),
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Center(
@@ -95,9 +98,14 @@ class _HomeAppState extends State<HomeApp> with SingleTickerProviderStateMixin {
                   name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: (_selected == index) ? Colors.black : Colors.white,
+                    color: (_selected == index)
+                        ? const Color(0xFF323232)
+                        : const Color.fromRGBO(255, 75, 97, 1),
                     decoration: TextDecoration.none,
-                    fontSize: 20,
+                    fontSize: (_selected == index) ? 21 : 20,
+                    fontWeight: (_selected == index)
+                        ? FontWeight.w500
+                        : FontWeight.normal,
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -137,8 +145,8 @@ class _HomeAppState extends State<HomeApp> with SingleTickerProviderStateMixin {
     );
 
     return Container(
-      decoration: const BoxDecoration(
-        color: Color.fromRGBO(13, 13, 13, 1),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade900,
       ),
       child: Column(
         children: [headerRow, searchBar, tabBar],
