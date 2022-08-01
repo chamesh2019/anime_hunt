@@ -1,7 +1,7 @@
-import 'dart:async'; 
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:anime_hunt/pages/home/home.dart';
+import 'package:anime_hunt/pages/err/connection.dart';
 
 class Loader extends StatefulWidget {
   const Loader({Key? key}) : super(key: key);
@@ -35,9 +35,9 @@ class _LoaderState extends State<Loader> {
           ],
           color: Color.fromRGBO(255, 0, 0, 1)),
     );
-    
+
     return Container(
-      decoration: const BoxDecoration(color: Colors.black),
+      decoration: const BoxDecoration(color: Color.fromARGB(255, 255, 255, 255)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -48,14 +48,24 @@ class _LoaderState extends State<Loader> {
     );
   }
 
-  void startTimer() {
-    Timer(const Duration(seconds: 2), route);
+  Future<void> startTimer() async {
+    final response = await http
+        .get(Uri.parse('https://gogoanime.herokuapp.com'));
+
+    if (response.statusCode == 200) {
+      route(1);
+    } else {
+      route(2);
+    }
   }
 
-  void route() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const HomeApp())
-    );
+  void route(index) {
+    if (index == 1) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const HomeApp()));
+    } else {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const ConnectionError()));
+    }
   }
 }

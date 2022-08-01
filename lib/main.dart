@@ -1,3 +1,4 @@
+import 'package:anime_hunt/pages/err/connection.dart';
 import 'package:flutter/material.dart';
 import 'package:anime_hunt/pages/loader/loader.dart';
 

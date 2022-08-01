@@ -36,8 +36,8 @@ class _HomeAppState extends State<HomeApp> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     var headerRow = Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
-      child: Row(children: [
-        const Expanded(
+      child: Row(children: const [
+        Expanded(
           child: Text(
             'ANIME HUNT',
             textAlign: TextAlign.center,
@@ -51,24 +51,24 @@ class _HomeAppState extends State<HomeApp> with SingleTickerProviderStateMixin {
                 color: Color.fromRGBO(255, 0, 0, 1)),
           ),
         ),
-        SizedBox(
-          child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: const Color(0xFF890404), width: 2)),
-              child: Image.asset('assets/images/dark_logo.jpg')),
-          height: 50,
-          width: 50,
-        )
+        // SizedBox(
+        //   child: Container(
+        //       decoration: BoxDecoration(
+        //           borderRadius: BorderRadius.circular(5),
+        //           border: Border.all(color: const Color(0xFF890404), width: 2)),
+        //       child: Image.asset('assets/images/dark_logo.jpg')),
+        //   height: 50,
+        //   width: 50,
+        // )
       ]),
     );
 
     var searchBar = Padding(
-      padding: const EdgeInsets.only(left: 5, right: 5),
+      padding: const EdgeInsets.only(left: 5, right: 5,  bottom: 8),
       child: Container(
         decoration: BoxDecoration(
-            color: const Color(0xFF2F2F2F),
-            borderRadius: BorderRadius.circular(5),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
             border:
                 Border.all(color: const Color.fromRGBO(139, 139, 139, 0.247))),
         child: const Padding(
@@ -76,10 +76,9 @@ class _HomeAppState extends State<HomeApp> with SingleTickerProviderStateMixin {
           child: Material(
             color: Colors.transparent,
             child: TextField(
-              cursorColor: Colors.white70,
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: TextStyle(fontSize: 18,),
               decoration: InputDecoration(
-                icon: Icon(Icons.search, color: Color(0xFF8B8B8B), size: 30),
+                icon: Icon(Icons.search, color: Color(0xFF8B8B8B), size: 25),
                 border: InputBorder.none,
                 hintText: 'Search Anime, Manga and Light Novels',
                 hintStyle: TextStyle(
@@ -164,8 +163,8 @@ class _HomeAppState extends State<HomeApp> with SingleTickerProviderStateMixin {
     // );
 
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.shade900,
+      decoration: const BoxDecoration(
+        color: Colors.white,
       ),
       child: Column(
         children: [headerRow, searchBar, contentBuilder()],
@@ -175,6 +174,9 @@ class _HomeAppState extends State<HomeApp> with SingleTickerProviderStateMixin {
 
   Container contentBuilder() {
     return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+      ),
       child: cardBulder(),
     );
   }
@@ -184,7 +186,7 @@ class _HomeAppState extends State<HomeApp> with SingleTickerProviderStateMixin {
 var imageUrl ="https://gogocdn.net/cover/hoshi-no-samidare.png";
 // "episodeUrl" : "https://gogoanime.film///hoshi-no-samidare-episode-4";}
 
-  cardBulder() {
+  Widget cardBulder() {
     return Material(
       child: Column(
         children: [
